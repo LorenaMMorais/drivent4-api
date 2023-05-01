@@ -36,9 +36,3 @@ export async function getHotelsWithRoomsService(userId: number, hotelId: number)
   }
   return hotel;
 }
-/*
-export default {
-  getHotels,
-  getHotelsWithRooms,
-};
-*/

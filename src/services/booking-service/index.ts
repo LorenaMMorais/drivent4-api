@@ -51,12 +51,3 @@ export async function updateBookingService(roomId: number, userId: number, booki
 
   return newBooking;
 }
-/*
-const bookingService = {
-  listBooking,
-  insertBooking,
-  updateBooking,
-};
-
-export default bookingService;
- */
