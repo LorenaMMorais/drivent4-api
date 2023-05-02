@@ -13,7 +13,7 @@ import {
   createEnrollmentWithAddress,
   createRoomWithHotelId,
   createTicketType,
-  createTicketTypeNoRemote,
+  createTicketTypeRemote,
   createTicketTypeWithHotel,
   createTicketTypeWithoutHotel,
 } from '../factories';
@@ -132,8 +132,9 @@ describe('POST /booking', () => {
       const enrollment = await createEnrollmentWithAddress(user);
       const ticketType = await createTicketType();
       const ticket = await createTicket(enrollment.id, ticketType.id, TicketStatus.PAID);
-      await createHotel();
+      const hotel = await createHotel();
       await createPayment(ticket.id, ticketType.price);
+      await createRoomWithHotelId(hotel.id);
 
       const response = await server.post('/booking').set('Authorization', `Bearer ${token}`).send({});
 
@@ -146,8 +147,9 @@ describe('POST /booking', () => {
       const enrollment = await createEnrollmentWithAddress(user);
       const ticketType = await createTicketTypeWithHotel();
       const ticket = await createTicket(enrollment.id, ticketType.id, TicketStatus.PAID);
-      await createHotel();
+      const hotel = await createHotel();
       await createPayment(ticket.id, ticketType.price);
+      await createRoomWithHotelId(hotel.id);
 
       const response = await server.post('/booking').set('Authorization', `Bearer ${token}`).send({});
 
@@ -158,7 +160,7 @@ describe('POST /booking', () => {
       const user = await createUser();
       const token = await generateValidToken(user);
       const enrollment = await createEnrollmentWithAddress(user);
-      const ticketType = await createTicketTypeNoRemote();
+      const ticketType = await createTicketTypeRemote();
       const ticket = await createTicket(enrollment.id, ticketType.id, TicketStatus.PAID);
       const hotel = await createHotel();
       await createPayment(ticket.id, ticketType.price);
@@ -177,7 +179,7 @@ describe('POST /booking', () => {
       const token = await generateValidToken(user);
       const enrollment = await createEnrollmentWithAddress(user);
       const ticketType = await createTicketType();
-      const ticket = await createTicket(enrollment.id, ticketType.id, TicketStatus.PAID);
+      const ticket = await createTicket(enrollment.id, ticketType.id, TicketStatus.RESERVED);
       const hotel = await createHotel();
       await createPayment(ticket.id, ticketType.price);
       const room = await createRoomWithHotelId(hotel.id);

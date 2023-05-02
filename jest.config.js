@@ -14,5 +14,4 @@ module.exports = {
     axios: 'axios/dist/node/axios.cjs',
   },  
   restoreMocks: true,
-  testTimeout: 10000
 };
