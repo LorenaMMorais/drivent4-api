@@ -4,7 +4,7 @@ import { listBooking, insertBooking, updateBookingService } from '@/services/boo
 import { AuthenticatedRequest } from '@/middlewares';
 
 export async function getBooking(req: AuthenticatedRequest, res: Response) {
-  const { userId } = req;
+  const { userId }: { userId: number } = req;
 
   try {
     const booking = await listBooking(userId);

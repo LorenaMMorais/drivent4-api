@@ -6,7 +6,7 @@ import { forbiddenError } from '@/errors/forbidden-error';
 export async function listBooking(userId: number) {
   const booking = await bookingRepository.getBooking(userId);
 
-  if (!booking) throw notFoundError();
+  if (!booking) throw forbiddenError();
 
   return booking;
 }
