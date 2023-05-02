@@ -24,7 +24,9 @@ export async function postBooking(req: AuthenticatedRequest, res: Response) {
 
     return res.status(httpStatus.OK).send(booking);
   } catch (error) {
-    return res.sendStatus(httpStatus.BAD_REQUEST);
+    if (error.name === 'Forbidden') return res.sendStatus(httpStatus.FORBIDDEN);
+
+    if (error.name === 'NotFoundError') return res.sendStatus(httpStatus.NOT_FOUND);
   }
 }
 
@@ -38,6 +40,8 @@ export async function updateBooking(req: AuthenticatedRequest, res: Response) {
 
     return res.sendStatus(httpStatus.OK);
   } catch (error) {
-    return res.sendStatus(httpStatus.BAD_REQUEST);
+    if (error.name === 'Forbidden') return res.sendStatus(httpStatus.FORBIDDEN);
+
+    if (error.name === 'NotFoundError') return res.sendStatus(httpStatus.NOT_FOUND);
   }
 }
